@@ -1,4 +1,4 @@
-import MovieInfo from './MovieInfo';
+import MovieDashboard from './MovieDashboard';
 
 function App() {
   const appWrapper = "min-h-screen flex flex-col bg-gray-50 font-sans text-gray-900";
@@ -17,7 +17,7 @@ function App() {
       </header>
 
       <main className={mainArea}>
-        <MovieInfo />
+        <MovieDashboard />
       </main>
 
       <footer className={footerStyle}>

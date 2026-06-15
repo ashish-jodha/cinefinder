@@ -1,4 +1,4 @@
-function MovieInfo() {
+function MovieInfo({ movie }) {
   const containerStyle = "w-full sm:w-11/12 md:w-10/12 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto mt-4 sm:mt-6 md:mt-8 p-4 sm:p-6 md:p-8 bg-white rounded-md sm:rounded-lg shadow-sm sm:shadow-md";
   const headerStyle = "flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 md:gap-8";
   const posterPlaceholder = "w-32 sm:w-40 md:w-48 lg:w-56 h-48 sm:h-60 md:h-72 lg:h-84 bg-gray-200 rounded-md flex-shrink-0 flex items-center justify-center text-gray-500 text-sm sm:text-base border border-gray-300";
@@ -16,28 +16,28 @@ function MovieInfo() {
   return (
     <div className={containerStyle}>
       <div className={headerStyle}>
-        
+
         <div className={posterPlaceholder}>
-          <span>Poster Image</span>
+          <span className="text-center px-2">{movie.title} Poster</span>
         </div>
 
         <div className={infoWrapper}>
-          <h2 className={titleStyle}>Deadpool & Wolverine</h2>
-          
+          <h2 className={titleStyle}>{movie.title}</h2>
+
           <div className={metadataContainer}>
-            <span className={badgeStyle}>R</span>
-            <span className={badgeStyle}>2h 7m</span>
-            <span className={badgeStyle}>2024</span>
+            <span className={badgeStyle}>{movie.rating}</span>
+            <span className={badgeStyle}>{movie.runtime}</span>
+            <span className={badgeStyle}>{movie.year}</span>
           </div>
 
           <p className={genreText}>
-            Action • Comedy • Sci-Fi
+            {movie.genres}
           </p>
-          
+
           <div className={synopsisWrapper}>
             <h3 className={synopsisHeading}>Synopsis</h3>
             <p className={synopsisText}>
-              A listless Wade Wilson toils away in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.
+              {movie.synopsis}
             </p>
           </div>
 
