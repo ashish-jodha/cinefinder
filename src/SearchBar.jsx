@@ -1,13 +1,22 @@
-function SearchBar() {
+import { useState } from 'react';
+
+function SearchBar({ handleSearch }) {
   const containerStyle = "w-full sm:w-11/12 md:w-10/12 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto mt-2 sm:mt-4 md:mt-6";
   const formStyle = "relative flex items-center w-full h-12 sm:h-14 md:h-16 bg-white rounded-md sm:rounded-lg shadow-sm border border-gray-200 overflow-hidden focus-within:shadow-md focus-within:border-indigo-400 transition-all";
   const iconWrapper = "grid place-items-center h-full w-10 sm:w-12 md:w-14 text-gray-400";
   const inputStyle = "peer h-full w-full outline-none text-sm sm:text-base md:text-lg text-gray-700 pr-2 bg-transparent placeholder-gray-400";
   const buttonStyle = "h-full px-4 sm:px-6 md:px-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm sm:text-base md:text-lg transition-colors flex items-center justify-center";
 
+  const [localQuery, setLocalQuery] = useState("");
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault(); 
+    handleSearch(localQuery); 
+  };
+
   return (
     <div className={containerStyle}>
-      <form className={formStyle} onSubmit={(e) => e.preventDefault()}>
+      <form className={formStyle} onSubmit={onSubmitHandler}>
         
         <div className={iconWrapper}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -21,6 +30,8 @@ function SearchBar() {
           id="search"
           placeholder="Search for a movie..."
           autoComplete="off"
+          value={localQuery}
+          onChange={(e) => setLocalQuery(e.target.value)}
         />
 
         <button type="submit" className={buttonStyle}>
