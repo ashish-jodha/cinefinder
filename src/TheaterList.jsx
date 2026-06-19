@@ -1,4 +1,4 @@
-function TheaterList({ theaters }) {
+function TheaterList({ theaters, userCity }) {
   const listContainer = "w-full sm:w-11/12 md:w-10/12 lg:w-3/4 xl:w-2/3 2xl:w-1/2 mx-auto mt-6 sm:mt-8 md:mt-10 flex flex-col gap-4 sm:gap-6 md:gap-8";
   const headingStyle = "text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 px-1";
   const theaterCard = "w-full bg-white rounded-md sm:rounded-lg shadow-sm sm:shadow-md p-4 sm:p-6 md:p-8 border border-gray-100 flex flex-col gap-3 sm:gap-4";
@@ -14,11 +14,12 @@ function TheaterList({ theaters }) {
 
   return (
     <div className={listContainer}>
-      <h3 className={headingStyle}>Nearby Showtimes</h3>
+      <h3 className={headingStyle}>
+        Nearby Showtimes {userCity ? `in ${userCity}` : "Near You"}
+      </h3>
       
       {theaters.map((theater, idx) => (
         <div key={idx} className={theaterCard}>
-          
           <div className={infoRow}>
             <h4 className={nameStyle}>{theater.name}</h4>
             <span className={distanceStyle}>{theater.distance} away</span>
@@ -31,7 +32,6 @@ function TheaterList({ theaters }) {
               </button>
             ))}
           </div>
-
         </div>
       ))}
     </div>

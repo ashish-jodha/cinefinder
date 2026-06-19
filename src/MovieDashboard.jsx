@@ -14,10 +14,10 @@ function MovieDashboard() {
   const [error, setError] = useState(null);
 
   const [locationStatus, setLocationStatus] = useState({
-    loading: false,
-    coords: null,
-    error: null
+    loading: false, coords: null, error: null
   });
+  
+  const [userCity, setUserCity] = useState(null);
 
   const mockTheaters = [
     { name: "Regal Cinema Downtown", distance: "1.2 miles", showtimes: ["12:30 PM", "3:45 PM", "7:00 PM"] },
@@ -33,13 +33,24 @@ function MovieDashboard() {
     setLocationStatus({ loading: true, coords: null, error: null });
 
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        console.log("Latitude:", position.coords.latitude, "Longitude:", position.coords.longitude);
-        setLocationStatus({
-          loading: false,
-          coords: { lat: position.coords.latitude, lng: position.coords.longitude },
-          error: null
-        });
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        
+        setLocationStatus({ loading: false, coords: { lat, lng }, error: null });
+
+        try {
+          const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+          const data = await response.json();
+          
+          const exactCity = data.address.city || data.address.town || data.address.village || data.address.county;
+          
+          if (exactCity) {
+            setUserCity(exactCity);
+          }
+        } catch (err) {
+          console.error("Could not translate coordinates to a city name.");
+        }
       },
       (err) => {
         setLocationStatus({ loading: false, coords: null, error: "Location access denied or unavailable." });
@@ -78,10 +89,7 @@ function MovieDashboard() {
     <div className={dashboardContainer}>
       <SearchBar handleSearch={handleSearch} />
       
-      <LocationBanner 
-        locationStatus={locationStatus} 
-        onRequestLocation={handleGetLocation} 
-      />
+      <LocationBanner locationStatus={locationStatus} onRequestLocation={handleGetLocation} />
       
       {isLoading && <p className={statusText}>Searching global database...</p>}
       {error && !isLoading && <p className={errorText}>{error}</p>}
@@ -90,7 +98,7 @@ function MovieDashboard() {
         <>
           <MovieInfo movie={movieData} />
           {locationStatus.coords ? (
-            <TheaterList theaters={mockTheaters} />
+            <TheaterList theaters={mockTheaters} userCity={userCity} />
           ) : (
             <p className="text-center text-gray-500 mt-6 italic">Share your location to see nearby showtimes.</p>
           )}
