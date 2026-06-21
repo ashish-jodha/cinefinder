@@ -5,6 +5,7 @@ import LocationBanner from './LocationBanner';
 import DateSelector from './DateSelector';
 import MovieInfo from './MovieInfo';
 import TheaterList from './TheaterList';
+import SkeletonCard from './SkeletonCard';
 
 function MovieDashboard() {
   const dashboardContainer = "w-full flex flex-col gap-4 sm:gap-6 md:gap-8";
@@ -103,7 +104,7 @@ function MovieDashboard() {
       <SearchBar handleSearch={handleNewSearch} />
       <LocationBanner locationStatus={locationStatus} onRequestLocation={handleGetLocation} />
       
-      {isLoading && <p className={statusText}>Searching global database...</p>}
+      {isLoading && <SkeletonCard />}
       {error && !isLoading && <p className={errorText}>{error}</p>}
       
       {movieData && !isLoading && (
