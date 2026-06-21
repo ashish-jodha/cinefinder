@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import LocationBanner from './LocationBanner';
+import DateSelector from './DateSelector';
 import MovieInfo from './MovieInfo';
 import TheaterList from './TheaterList';
 
@@ -18,11 +19,23 @@ function MovieDashboard() {
   const [error, setError] = useState(null);
   const [userCity, setUserCity] = useState(null);
   const [locationStatus, setLocationStatus] = useState({ loading: false, coords: null, error: null });
+  const [activeDate, setActiveDate] = useState("Today");
 
-  const mockTheaters = [
-    { name: "Regal Cinema Downtown", distance: "1.2 miles", showtimes: ["12:30 PM", "3:45 PM", "7:00 PM"] },
-    { name: "AMC Town Centre 15", distance: "3.4 miles", showtimes: ["1:15 PM", "4:30 PM", "8:00 PM"] }
-  ];
+  const showtimesByDate = {
+    Today: [
+      { name: "Regal Cinema Downtown", distance: "1.2 miles", showtimes: ["12:30 PM", "3:45 PM", "7:00 PM"] },
+      { name: "AMC Town Centre 15", distance: "3.4 miles", showtimes: ["1:15 PM", "4:30 PM", "8:00 PM"] }
+    ],
+    Tomorrow: [
+      { name: "Regal Cinema Downtown", distance: "1.2 miles", showtimes: ["11:00 AM", "2:15 PM", "6:30 PM", "9:45 PM"] },
+      { name: "AMC Town Centre 15", distance: "3.4 miles", showtimes: ["12:00 PM", "3:15 PM", "7:30 PM"] }
+    ],
+    Weekend: [
+      { name: "Regal Cinema Downtown", distance: "1.2 miles", showtimes: ["10:30 AM", "1:45 PM", "5:00 PM", "8:15 PM"] },
+      { name: "AMC Town Centre 15", distance: "3.4 miles", showtimes: ["11:15 AM", "2:30 PM", "6:00 PM", "9:30 PM"] },
+      { name: "Cinemark Majestic Cinema", distance: "5.8 miles", showtimes: ["1:00 PM", "4:15 PM", "7:30 PM", "10:45 PM"] }
+    ]
+  };
 
   useEffect(() => {
     if (query) {
@@ -96,8 +109,10 @@ function MovieDashboard() {
       {movieData && !isLoading && (
         <>
           <MovieInfo movie={movieData} />
+          <DateSelector activeDate={activeDate} setActiveDate={setActiveDate} />
+          
           {locationStatus.coords ? (
-            <TheaterList theaters={mockTheaters} userCity={userCity} />
+            <TheaterList theaters={showtimesByDate[activeDate]} userCity={userCity} />
           ) : (
             <p className="text-center text-gray-500 mt-6 italic">Share your location to see nearby showtimes.</p>
           )}
