@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
 import MovieDashboard from './MovieDashboard';
+import NotFound from './NotFound';
 
 function App() {
   const appWrapper = "min-h-screen flex flex-col bg-gray-50 font-sans text-gray-900";
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search/:query" element={<MovieDashboard />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 
