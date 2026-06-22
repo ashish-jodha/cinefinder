@@ -48,7 +48,7 @@ function MovieDashboard() {
     setIsLoading(true);
     setError(null);
     try {
-      const API_KEY = "79c8609b"; 
+      const API_KEY = import.meta.env.OMDB_API_KEY;
       const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(searchTerm)}&apikey=${API_KEY}`);
       const data = await response.json();
 
