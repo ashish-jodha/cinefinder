@@ -1,16 +1,103 @@
-# React + Vite
+# 🎬 CineFinder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A movie discovery application built with React, Vite, and Tailwind CSS.
 
-Currently, two official plugins are available:
+Users can search for movies, view detailed information, and discover nearby theater showtimes using browser geolocation and location-based services.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌐 Live Demo
 
-## React Compiler
+👉 **https://cinefinder-six.vercel.app/**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔍 Search movies using the OMDb API
+- 🎬 View movie posters, ratings, runtime, and plot details
+- 🛣️ Dynamic routing with React Router
+- 📍 Browser-based geolocation support
+- 🗺️ Reverse geocoding using OpenStreetMap
+- 🎟️ Location-aware theater showcase using mock showtime data
+- 📅 Filter showtimes by date categories
+- ✨ Skeleton loading states for improved user experience
+- 🚨 Custom 404 page and error handling
+- 📱 Fully responsive design
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology          | Purpose                  |
+| ------------------- | ------------------------ |
+| React (Vite)        | Frontend Framework       |
+| React Router DOM    | Routing & URL Parameters |
+| Tailwind CSS        | Styling                  |
+| OMDb API            | Movie Data               |
+| OpenStreetMap API   | Reverse Geocoding        |
+| Web Geolocation API | User Location Services   |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have **Node.js** installed.
+
+You will also need an **OMDb API key**.
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/ashish-jodha/cinefinder.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd cinefinder
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_OMDB_API_KEY=your_actual_api_key_here
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+---
+
+## 📂 Project Structure
+
+```text
+src/
+├── App.jsx             # Main router and layout
+├── Home.jsx            # Landing page
+├── MovieDashboard.jsx  # Data fetching and state management
+├── SearchBar.jsx       # Search component
+├── MovieInfo.jsx       # Movie details display
+├── LocationBanner.jsx  # Geolocation handling
+├── TheaterList.jsx     # Theater and showtime display
+├── DateSelector.jsx    # Showtime filtering
+├── SkeletonCard.jsx    # Loading UI
+└── NotFound.jsx        # Custom 404 page
+```
+
+---
+
+## 👨‍💻 Author
+
+**Ashish Jodha**
